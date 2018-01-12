@@ -1,0 +1,8 @@
+dn: olcOverlay=memberof,olcDatabase={-1}frontend,cn=config
+objectClass: olcConfig
+objectClass: olcOverlayConfig
+objectClass: olcMemberOf
+olcOverlay: memberof
+olcMemberOfGroupOC: groupOfUniqueNames
+olcMemberOfMemberAD: uniqueMember
+

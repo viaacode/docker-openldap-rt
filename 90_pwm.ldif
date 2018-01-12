@@ -1,0 +1,20 @@
+dn: cn=pwm,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: pwm
+olcAttributeTypes: ( 1.3.6.1.4.1.591242.2.2010.04.16.1
+        NAME 'pwmEventLog' DESC 'Event Log Entry' EQUALITY octetStringMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )
+olcAttributeTypes: ( 1.3.6.1.4.1.591242.2.2010.04.16.2
+        NAME 'pwmResponseSet' DESC 'Response set'  EQUALITY octetStringMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )
+olcAttributeTypes: ( 1.3.6.1.4.1.591242.2.2010.04.16.3
+        NAME 'pwmLastPwdUpdate'
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 )
+olcAttributeTypes: ( 1.3.6.1.4.1.591242.2.2010.04.16.4
+        NAME 'pwmGUID'
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+olcObjectclasses: ( 1.3.6.1.4.1.591242.1.2010.04.16.1
+        NAME 'pwmUser'
+        AUXILIARY
+        MAY ( pwmLastPwdUpdate $ pwmEventLog $ pwmResponseSet $ pwmGUID ) )
+
