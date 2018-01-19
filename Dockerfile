@@ -3,7 +3,7 @@ MAINTAINER Herwig Bogaert
 
 ENV RecoveryArea /recovery_area
 ENV RecoverySocket "unix:/recovery_socket"
-ARG RecoverySocketGid=4
+ARG RecoveryAreaGid=4
 ARG LdapPort=8389
 ENV LdapPort $LdapPort
 
@@ -24,7 +24,7 @@ COPY *.ldif /docker-entrypoint-init/
 #   Enable passwordless access via shared memory for openldap user
 RUN /usr/local/bin/configure_ldap_access.sh
 #   local openldap user can write to the recovery socket and access the recovery area
-RUN usermod -G $RecoverySocketGid openldap
+RUN usermod -G $RecoveryAreaGid openldap
 #   local openldap user can drop in initialization files
 RUN chown openldap:openldap /docker-entrypoint-init/
 
