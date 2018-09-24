@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:latest
 MAINTAINER Herwig Bogaert 
 
 ENV RecoveryArea /recovery_area
@@ -7,10 +7,14 @@ ARG RecoveryAreaGid=4
 ARG LdapPort=8389
 ENV LdapPort $LdapPort
 
-RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-  db-util ldap-utils slapd socat \
-  && rm -rf /var/lib/apt/lists/*
+# Install slapd and remove the preconfigured backend
+RUN apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  db-util ldap-utils slapd socat && \
+  rm -rf /var/lib/apt/lists/* && \
+  find /etc/ldap/slapd.d/ -type f \
+  -exec grep -qi '^olcDbDirectory:.*/var/lib/ldap' {} \; -exec rm {} \; && \
+  rm -f /var/lib/ldap/*
 
 VOLUME /var/lib/ldap
 
