@@ -1,15 +1,23 @@
 LdapData='/var/lib/ldap'
 
+while getopts ":d:l:t:" opt; do
+    case $opt in
+        d) SrcDataDir=$OPTARG
+            ;;
+        l) SrcLogDir=$OPTARG
+            ;;
+        t) Time=$OPTARG
+            ;;
+    esac
+done
+
 # If data has already been recovered in a previous run, just start the container
 if [ -d $LdapData/data ]; then
     exec docker-entrypoint.sh
 fi
 
-SrcDataDir=$1
-SrcLogDir=$2
-Time=${3:-null}
-
-[ -z $1 ] || [ -z $2 ] && exit 3
+[ -z $SrcDataDir ] || [ -z $SrcLogDir ] && exit 3
+Time=${Time:=null}
 
 DataDir=$(basename $SrcDataDir)
 LogDir=$(basename $SrcLogDir)
