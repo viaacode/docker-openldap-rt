@@ -57,15 +57,25 @@ olcAttributeTypes: ( 1.3.6.1.4.1.50458.2.2017.07.29.9
         EQUALITY caseIgnoreIA5Match
         SUBSTR caseIgnoreIA5SubstringsMatch
         SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+olcAttributeTypes: ( 1.3.6.1.4.1.50458.2.2017.07.29.10
+        NAME 'x-be-viaa-eduExceptionAccount'
+        DESC 'User account is allowed by rule of exception for educational purposes'
+        EQUALITY booleanMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 )
+olcAttributeTypes: ( 1.3.6.1.4.1.50458.2.2017.07.29.11
+        NAME 'x-be-viaa-apps'
+        DESC 'List of apps to which the user has access'
+        EQUALITY caseIgnoreMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 olcObjectClasses: ( 1.3.6.1.4.1.50458.1.2017.07.29.1
         NAME 'x-be-viaa-person'
         AUXILIARY
-        MAY ( x-be-viaa-externalId $ x-be-viaa-accountExpiry $ x-be-viaa-confirmedAt $ x-be-viaa-otherMail ) )
+        MAY ( x-be-viaa-externalId $ x-be-viaa-accountExpiry $ x-be-viaa-confirmedAt $ x-be-viaa-otherMail $ x-be-viaa-apps) )
 olcObjectClasses: ( 1.3.6.1.4.1.50458.1.2017.07.29.2
         NAME 'x-be-viaa-educationalPerson'
         DESC 'Person who is active in education, e.g. Teacher, Student, Professor.'
         AUXILIARY
-        MAY ( x-be-viaa-eduCourseName $ x-be-viaa-eduTypeName $ x-be-viaa-eduTypeCode $ x-be-viaa-eduLevelName $ x-be-viaa-accountExpiry $ organizationalStatus ) )
+        MAY ( x-be-viaa-eduCourseName $ x-be-viaa-eduTypeName $ x-be-viaa-eduTypeCode $ x-be-viaa-eduLevelName $ x-be-viaa-accountExpiry $ organizationalStatus $ x-be-viaa-eduExceptionAccount ) )
 olcObjectClasses: ( 1.3.6.1.4.1.50458.1.2017.07.29.3
         NAME 'x-be-viaa-organization'
         AUXILIARY

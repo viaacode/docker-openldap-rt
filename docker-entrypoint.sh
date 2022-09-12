@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ -z "$1" ] || [ "${1:0:1}" == '-' ]; then
-    set -- slapd -d1 -h ldap://:$LdapPort/ "$@"
+    set -- slapd -d1 -h ldap://:$LdapPort/ -h ldapi:/// "$@"
 fi
 
 if [ $(basename $1) == 'slapd' ]; then 

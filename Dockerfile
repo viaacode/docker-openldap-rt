@@ -10,7 +10,7 @@ ENV LdapPort $LdapPort
 # Install slapd and remove the preconfigured backend
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y \
-  procps db-util ldap-utils slapd socat && \
+  procps psmisc db-util ldap-utils slapd socat && \
   rm -rf /var/lib/apt/lists/* && \
   find /etc/ldap/slapd.d/ -type f \
   -exec grep -qi '^olcDbDirectory:.*/var/lib/ldap' {} \; -exec rm {} \; && \
