@@ -67,10 +67,17 @@ olcAttributeTypes: ( 1.3.6.1.4.1.50458.2.2017.07.29.11
         DESC 'List of apps to which the user has access'
         EQUALITY caseIgnoreMatch
         SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+olcAttributeTypes: ( 1.3.6.1.4.1.50458.2.2017.07.29.12
+        NAME 'x-be-viaa-externalUUID'
+        DESC 'external UUID identifier'
+        EQUALITY UUIDMatch
+        ORDERING UUIDOrderingMatch
+        SYNTAX 1.3.6.1.1.16.1
+        SINGLE-VALUE )
 olcObjectClasses: ( 1.3.6.1.4.1.50458.1.2017.07.29.1
         NAME 'x-be-viaa-person'
         AUXILIARY
-        MAY ( x-be-viaa-externalId $ x-be-viaa-accountExpiry $ x-be-viaa-confirmedAt $ x-be-viaa-otherMail $ x-be-viaa-apps) )
+        MAY ( x-be-viaa-externalId $ x-be-viaa-externalUUID $ x-be-viaa-accountExpiry $ x-be-viaa-confirmedAt $ x-be-viaa-otherMail $ x-be-viaa-apps) )
 olcObjectClasses: ( 1.3.6.1.4.1.50458.1.2017.07.29.2
         NAME 'x-be-viaa-educationalPerson'
         DESC 'Person who is active in education, e.g. Teacher, Student, Professor.'
@@ -79,7 +86,7 @@ olcObjectClasses: ( 1.3.6.1.4.1.50458.1.2017.07.29.2
 olcObjectClasses: ( 1.3.6.1.4.1.50458.1.2017.07.29.3
         NAME 'x-be-viaa-organization'
         AUXILIARY
-        MAY ( x-be-viaa-externalId $ x-be-viaa-sector ) )
+        MAY ( x-be-viaa-externalId $ x-be-viaa-externalUUID $ x-be-viaa-sector ) )
 olcObjectClasses: ( 1.3.6.1.4.1.50458.1.2017.07.29.4
         NAME 'x-be-viaa-educationalOrganization'
         DESC 'Organisation active in the wider field of the educational sector, such as a school, university, but also an educational publisher.'

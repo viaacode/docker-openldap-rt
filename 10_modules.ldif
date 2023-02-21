@@ -2,4 +2,8 @@ dn: cn=module{0},cn=config
 changetype: modify
 add: olcModuleLoad
 olcModuleLoad: back_bdb.la
-olcModuleLoad: memberof.la
+olcModuleLoad: memberof.la                                                 
+olcModuleLoad: ppolicy.la                                                  
+olcModuleLoad: refint.la                                                   
+olcModuleLoad: unique.la                                                   
+                               

@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:buster-slim
 MAINTAINER Herwig Bogaert 
 
 ENV RecoveryArea /recovery_area
@@ -18,11 +18,13 @@ RUN apt-get update && \
 
 VOLUME /var/lib/ldap
 
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY *.ldif /docker-entrypoint-init/
+
 COPY configure_ldap_access.sh /usr/local/bin/
 COPY recover.sh /usr/local/bin/
-
-COPY *.ldif /docker-entrypoint-init/
+COPY load.sh /usr/local/bin/
+COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-entrypoint-init.sh /usr/local/bin/
 
 # Arange access so that the containr can run non-privileged
 #   Enable passwordless access via shared memory for openldap user
@@ -30,12 +32,13 @@ RUN /usr/local/bin/configure_ldap_access.sh
 #   local openldap user can write to the recovery socket and access the recovery area
 RUN usermod -G $RecoveryAreaGid openldap
 #   local openldap user can drop in initialization files
-RUN chown openldap:openldap /docker-entrypoint-init/
+RUN chown -R openldap:openldap /docker-entrypoint-init/
 
 # Run as a non-privileged container
 USER openldap
 
 # Which implies using a non privilged port
 EXPOSE $LdapPort
+
 
 ENTRYPOINT ["docker-entrypoint.sh"]
