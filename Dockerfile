@@ -1,9 +1,9 @@
-FROM debian:buster-slim
+FROM docker.io/debian:bullseye-slim
 MAINTAINER Herwig Bogaert 
 
 ENV RecoveryArea /recovery_area
 ENV RecoverySocket "unix:/recovery_socket"
-ARG RecoveryAreaGid=4
+ARG RecoveryAreaGid
 ARG LdapPort=8389
 ENV LdapPort $LdapPort
 
@@ -30,7 +30,7 @@ COPY docker-entrypoint-init.sh /usr/local/bin/
 #   Enable passwordless access via shared memory for openldap user
 RUN /usr/local/bin/configure_ldap_access.sh
 #   local openldap user can write to the recovery socket and access the recovery area
-RUN usermod -G $RecoveryAreaGid openldap
+RUN groupadd -g $RecoveryAreaGid recovery && usermod -G $RecoveryAreaGid openldap
 #   local openldap user can drop in initialization files
 RUN chown -R openldap:openldap /docker-entrypoint-init/
 
@@ -39,6 +39,5 @@ USER openldap
 
 # Which implies using a non privilged port
 EXPOSE $LdapPort
-
 
 ENTRYPOINT ["docker-entrypoint.sh"]
